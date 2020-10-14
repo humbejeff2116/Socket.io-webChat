@@ -1,0 +1,23 @@
+
+
+
+
+
+
+
+<%- include('_header') %> 
+
+  
+        <form action="" id ="form">
+                <input id="m" autocomplete="off" /><button type="submit">Send</button>
+        </form>
+              <h4 id="users"></h4>
+              <h3>
+                <%= username %>
+                </h3>
+              <ul id="messages"></ul>
+              <script src="/socket.io/socket.io.js"></script>
+              <script src="main.js"></script>
+
+              
+<%- include('_footer') %> 
