@@ -12,11 +12,12 @@ if you dont have node.js install at (<http://nodejs.org>)
 
 * Clone the repository and change directory into:
 
-``
-$ git clone <https://github.com/humbejeff2116/Socket.io-webChat.git>
-$ cd Socket.io-webChat
+```console
+1. $ git clone <https://github.com/humbejeff2116/Socket.io-webChat.git>
+2. cd Socket.io-webChat
 
-``
+```
+
 Install `dependencies` with [npm](https://www.npmjs.com/):
 
 1. Run `npm install`
