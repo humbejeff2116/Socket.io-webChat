@@ -1,60 +1,25 @@
 
-
-
-
-
-
-
-
-
-
 <%- include('_header') %> 
+
 <div>
     
 </div>
-
-
-
-
-
-
-
-
 <div class="container">
         <div class="header">
         <h3>
               lets chat    
             </h3>
-        </div>
-
-
-
-   
+        </div>  
 <div class="form">
    <div id = "error-container"></div>
    <form action="" id="form" method="POST" >  
 <input id="username" type="text" name="username" autocomplete="off"  placeholder="choose a username"/>
-   <button type = "button" name = "button" onclick ="setUsername()">
+   <button type = "button" name = "submit" onclick ="setUser()">
       Let's chat!
    </button>
 </form>
 </div>
-
-
-         
-
-       
-      
-   
-
-
-
-<!-- 
-<h3>
-   select a username
-</h3>
-
-      <div id = "error-container"></div> -->
-     
-     
+<script src="/socket.io/socket.io.js"></script>
+<script src="/main.js"></script>
+ 
 <%- include('_footer') %> 

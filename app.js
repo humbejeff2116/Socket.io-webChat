@@ -1,12 +1,7 @@
-
-
-
-
-// const express = require('express');
+const express = require('express');
 const app = require('express')();
 const logger = require('morgan');
-const bodyParser = require('body-parser');
-const http = require('http');
+const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const path = require('path');
 const port = process.env.PORT || 8080;
@@ -15,11 +10,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine' ,'ejs' );
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname , 'public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false}));
-app.get('/', (req,res)=>{    res.render('index') });
+app.get('/', (req,res)=>{
 
-var users = [];
+  res.render('index'); 
+
+});
+
+ let users = [];
  app.locals.users = users;
  let onlineUsers = 0;
  io.on('connection', function(socket) {
@@ -31,9 +28,9 @@ var users = [];
        
        if(users.indexOf(data) > -1) {
         // if user exist send a warning message back to the client
-          socket.emit('userExists', ` the username  ${data} is taken! Try some other username.`);
+       return   socket.emit('userExists', ` the username  ${data} is taken! Try some other username.`);
 
-       } else {
+       } 
 
           onlineUsers++
           console.log('A user connected');
@@ -60,14 +57,14 @@ var users = [];
         
         })
     
-       }
+       
     });
       
     // recieves message from client
-    socket.on('chat msg', function(data) {
-       //Send message to everyone from server
-       io.emit('new msg', data);
-    });
+    socket.on('msg', function(data) {
+      //Send message to everyone
+      io.sockets.emit('newmsg', data);
+   })
 
  });
 
@@ -82,7 +79,7 @@ app.use((err,req,res,next)=>{
     res.status(500).send('internal sever error')
 })
 
-http.createServer(app).listen(port, ()=> console.log(`app has started on port ${port}`));
+http.listen(port, ()=> console.log(`app started on port ${port}`));
 
     //  socket.emit only the current user can see mssg
     // socket.broadcast.emit  every user can see msg

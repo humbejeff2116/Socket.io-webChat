@@ -2,21 +2,21 @@
 
 
 
-
-
-
-
-
    var socket = io();
-   function setUsername() {
+   // set username for chat
+   function setUser() {
       socket.emit('setUsername', document.getElementById('username').value);
    };
+   // variable to store user
    var user;
+   // display data(error message) if user already exist
    socket.on('userExists', function(data) {
       document.getElementById('error-container').innerHTML = data;
    });
+   // if a new user you initalize user variable with data(username)
    socket.on('userSet', function(data) {
       user = data.username;
+      // attach a new form to the DOM for chatting 
       document.getElementsByClassName('container')[0].innerHTML = `
       <h4 id="users"></h4>
       <div id = "message-container"></div> 
@@ -27,44 +27,33 @@
       
    });
 
-   socket.on('broadcast', function(data){
+   // 
+
+   socket.on('broadcast', function(data){  
+      if(data.username){        
+        return  document.getElementById('users').innerHTML = data.description +' '+data.username;
+      }
+        return  document.getElementById('users').innerHTML = data.description;    
+      }); 
+   //  send message function
    
-        if(data.username){
-          return  document.getElementById('users').innerHTML = data.description +' '+data.username;
-
-
-        }else{
-          return  document.getElementById('users').innerHTML = data.description;
-
-        }
-       
-
-     
-   
-        });
-    
-  
-   
-
    function sendMessage() {
-
-   
       var msg = document.getElementById('message');
       if(msg.value) {
-         socket.emit('chat msg', {message: msg.value, user: user});
+         socket.emit('msg', {message: msg.value, user: user});
          msg.value ='';
          msg.focus();
+
       }
    }
-
-
-   socket.on('new msg', function(data) {
-       
+   socket.on('newmsg', function(data) {
       if(user) {
-         document.getElementById('message-container').innerHTML += '<div id="messsage"><b>@' + 
+         document.getElementById('message-container').innerHTML += '<div><b>' + 
             data.user + '</b>: ' + data.message + '</div>'
       }
    })
+
+ 
 
 
 
