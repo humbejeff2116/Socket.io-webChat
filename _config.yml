@@ -1,1 +1,9 @@
 theme: jekyll-theme-cayman
+title: "simple chat application"
+# tagline: ""
+description: "web chat application functionality using socket.IO, node.js and ejs."
+url: "https://humbejeff2116.github.io/Socket.io-webChat/" # the base hostname & protocol for your site
+name: "google-site-verification" 
+content: "Wdie8RI4rPftkZSxF-BsnLl65bzZ5Y6im-IUx3y7YFY" 
+plugins:
+  - jekyll-sitemap

@@ -1,27 +1,30 @@
 # Simple Web chat application functionality using Socket.IO
 
 > This is a simple implementation of a real time web based chat functionality using
-> socket.IO and node.js
+> `Socket.IO` and `NodeJS`
 
-## Installation and running project
+## Running project
 
- you need to have node.js installed on your system to be able to run this app functionality.
-if you dont have node.js install at (<http://nodejs.org>)
+ **Note: you need to have `NodeJS` installed on your system to be able to run this app functionality.**
+
+If you dont have `NodeJS` on your local machine you could follow this link to download and install (<https://nodejs.org>)
 
 ### Install dependencies
 
-* Clone the repository and change directory into:
+ Clone the repository:
 
 ```console
-1. $ git clone https://github.com/humbejeff2116/Socket.io-webChat.git
-2. cd Socket.io-webChat
-
+  git clone https://github.com/humbejeff2116/Socket.io-webChat.git
 ```
 
-Install `dependencies` with [npm](https://www.npmjs.com/):
+And in projects root folder
 
-1. Run `npm install`
+### `npm install`
 
-2. Run the server `npm run start`
+Install `dependencies` with [npm](https://www.npmjs.com/)
 
-Open your browser and go to [http://localhost:8080/](http://localhost:8080/)
+### `npm run start`
+
+Starts server on your local machine
+
+Open your browser and go to [http://localhost:8080/](http://localhost:8080/) to view appliction

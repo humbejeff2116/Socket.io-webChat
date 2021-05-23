@@ -1,5 +1,6 @@
 {
     "name": "socket-chat",
+    "author":"Humbe Jeffrey",
     "private": "true",
     "scripts": {
         "start": "node app.js"
