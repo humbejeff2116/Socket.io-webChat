@@ -13,11 +13,28 @@ app.use(express.static(path.join(__dirname , 'public')));
 app.get('/', (req, res) => res.render('index'));
 
  let users = [];
+ function SaveData() {
+  let userData = [];
+  this.savedata = function(data) {
+    userData.push(data)
+  }
+  this.getuserData = function() {
+    return userData;
+  }
+}
+
  app.locals.users = users;
  let onlineUsers = 0;
- io.on('connection', function(socket) {
+  io.on('connection', function(socket) {
     console.log('connection established');
     //recieves username from client and  set username
+    socket.on('saveUserData', async function(data) {
+      console.log('data is', data);
+      let userDataStructure =  new SaveData();
+      await userDataStructure.savedata(data);
+      console.log('userdata is ', userDataStructure.getuserData());
+    })
+      
     socket.on('setUsername', function(data) {
        console.log(data);
         if (users.indexOf(data) > -1) {
@@ -29,7 +46,7 @@ app.get('/', (req, res) => res.render('index'));
         //send user data to the client after username have been set
         socket.emit('userSet', { username: data });
           // send message to new user
-        socket.emit('broadcast', { description: 'Hi, welcome!', username:data});
+        socket.emit('broadcast', { description: 'Hi, welcome!', username: data });
           // send number of online users after 05 seconds to new user
         setTimeout(function() {
           socket.emit('broadcast', { 
@@ -37,14 +54,15 @@ app.get('/', (req, res) => res.render('index'));
           });
         }, 5000);
         //  send broadcast to every online user about users online
-         socket.broadcast.emit('broadcast', {description: onlineUsers + ' Users online'});
+         socket.broadcast.emit('broadcast', { description: onlineUsers + ' Users online' });
          // user discconnects  
         socket.on('disconnect' ,()=> {
           onlineUsers--;
           // send broadcast to everyone when a user leaves
-          socket.broadcast.emit('broadcast', {description:'A user has left'})
-          setTimeout(()=>{
-            socket.broadcast.emit('broadcast',{description:(onlineUsers === 1)? 'It seems you are the only person online':  onlineUsers +' Users online'});
+          socket.broadcast.emit('broadcast', { description: 'A user has left'})
+          setTimeout(() => {
+            socket.broadcast.emit('broadcast',{ 
+              description: (onlineUsers === 1) ? 'It seems you are the only person online':  onlineUsers +' Users online'});
           },4000)
         }); 
     }); 
@@ -52,8 +70,8 @@ app.get('/', (req, res) => res.render('index'));
     socket.on('msg', function(data) {
       //Send message to everyone
       io.sockets.emit('newmsg', data);
-   });
- });
+    });
+  });
 
 app.use((req, res) => {
   res.status(404).render('404')

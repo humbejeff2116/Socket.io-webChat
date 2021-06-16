@@ -5,12 +5,16 @@
    var socket = io();
    let user;
    function setUser() {
+      socket.emit('saveUserData',{name:"jeffrey", age:26})
       socket.emit('setUsername', document.getElementById('username').value);
    };
 
    socket.on('userExists', function(data) {
       document.getElementById('error-container').innerHTML = data;
    });
+   socket.on('savedData', function(data) {
+      alert(data.savedData.name);
+   })
 
    socket.on('userSet', function(data) {
       user = data.username;
